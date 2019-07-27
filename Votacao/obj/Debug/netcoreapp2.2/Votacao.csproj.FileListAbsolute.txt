@@ -1,0 +1,11 @@
+C:\Users\Treinamento 5\source\repos\Votacao\bin\Debug\netcoreapp2.2\Votacao.deps.json
+C:\Users\Treinamento 5\source\repos\Votacao\bin\Debug\netcoreapp2.2\Votacao.runtimeconfig.json
+C:\Users\Treinamento 5\source\repos\Votacao\bin\Debug\netcoreapp2.2\Votacao.runtimeconfig.dev.json
+C:\Users\Treinamento 5\source\repos\Votacao\bin\Debug\netcoreapp2.2\Votacao.dll
+C:\Users\Treinamento 5\source\repos\Votacao\bin\Debug\netcoreapp2.2\Votacao.pdb
+C:\Users\Treinamento 5\source\repos\Votacao\obj\Debug\netcoreapp2.2\Votacao.csprojAssemblyReference.cache
+C:\Users\Treinamento 5\source\repos\Votacao\obj\Debug\netcoreapp2.2\Votacao.csproj.CoreCompileInputs.cache
+C:\Users\Treinamento 5\source\repos\Votacao\obj\Debug\netcoreapp2.2\Votacao.AssemblyInfoInputs.cache
+C:\Users\Treinamento 5\source\repos\Votacao\obj\Debug\netcoreapp2.2\Votacao.AssemblyInfo.cs
+C:\Users\Treinamento 5\source\repos\Votacao\obj\Debug\netcoreapp2.2\Votacao.dll
+C:\Users\Treinamento 5\source\repos\Votacao\obj\Debug\netcoreapp2.2\Votacao.pdb
