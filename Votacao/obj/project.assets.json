@@ -692,11 +692,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Treinamento 5\\source\\repos\\Votacao\\Votacao.csproj",
+      "projectUniqueName": "C:\\Users\\Treinamento 5\\Desktop\\Votar\\Votacao\\Votacao.csproj",
       "projectName": "Votacao",
-      "projectPath": "C:\\Users\\Treinamento 5\\source\\repos\\Votacao\\Votacao.csproj",
+      "projectPath": "C:\\Users\\Treinamento 5\\Desktop\\Votar\\Votacao\\Votacao.csproj",
       "packagesPath": "C:\\Users\\Treinamento 5\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Treinamento 5\\source\\repos\\Votacao\\obj\\",
+      "outputPath": "C:\\Users\\Treinamento 5\\Desktop\\Votar\\Votacao\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
