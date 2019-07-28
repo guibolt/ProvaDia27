@@ -8,7 +8,7 @@ namespace Votacao.Entidades
     {
         public string Nome { get; set; }
         public int Id { get; set; }
-       static public List<Eleitor> Eleitores { get; set; }
+        public List<Eleitor> Eleitores { get; set; } = new List<Eleitor>();
 
         public Pauta() { }
         public Pauta(string nome, int id, List<Eleitor> eleitores)
@@ -22,8 +22,8 @@ namespace Votacao.Entidades
             Nome = nome;
             Id = id;
         }
-        
-       static public void Mostra()
+
+       public void Mostra()
         {
             Console.WriteLine("Nome dos Eleitores");
             foreach (var item in Eleitores)
@@ -31,10 +31,13 @@ namespace Votacao.Entidades
                 Console.WriteLine($"Nome: {item.Nome} Cod: {item.CodEleitor}\n");
             }
         }
-        public void Add(Eleitor eleitor)
+         public void Add(List<Eleitor> eleitor)
         {
-            Eleitores.Add(eleitor);
+            Console.WriteLine("Agora selecione o eleitor pelo codigo a adiconar na pauta");
+            eleitor.ForEach(e => Console.WriteLine($"Nome: {e.Nome} Cod: {e.CodEleitor}\n"));
+            int el = int.Parse(Console.ReadLine());
+            var ele = eleitor.Find((c => c.CodEleitor == el));
+            Eleitores.Add(ele);
         }
-        
     }
 }

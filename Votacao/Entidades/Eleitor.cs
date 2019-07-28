@@ -8,7 +8,7 @@ namespace Votacao.Entidades
     {
         public string Nome { get; set; }
         public int CodEleitor { get; set; }
-
+       
         public Eleitor() {}
 
         public Eleitor(string nome, int codEleitor)

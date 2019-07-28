@@ -1,25 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
 using Votacao.Entidades;
-using System.Linq;
+using System.IO;
+using Newtonsoft.Json;
 namespace Votacao
 {
     class Program
     {
+
+
         static void Main(string[] args)
         {
-            var Votar = new List<Votar>();
+            bool comecar = true;
+            string Path = @"C:\Users\guibo\Desktop\Trbalho\ProvaDia27\Votacao\Arquiv\ArquivoJson2.json";
+            string caminho = @"C:\Users\guibo\Desktop\Trbalho\ProvaDia27\Votacao\Arquiv\Resultados.json";
+
             var Eleitores = new List<Eleitor>();
+            var Votar = new List<Votar>();
             var Pautas = new List<Pauta>();
 
-            while (true)
+
+            using (StreamReader s = File.OpenText(Path))
             {
-                Console.WriteLine("PRESSIONE |1| PARA CADASTRO DE ELEITORES\n|2| PARA CADASTRO DE PAUTAS\n|3| PARA AS MOSTRAR PAUTAS \n|4|PARA LISTAR A BASE DE ELEIOTRES \n|5| PARA VINCULAR \n|6| PARA LISTAR O RESULTADO DE PAUTAS FINALIZADAS  \n |7| PARA INICIAR A VOTAÇÃO \n PRESSIONE |8| PARA SAIR");
+                string[] lines = File.ReadAllLines(Path);
+                foreach (var line in lines)
+                {
+                    var paut = JsonConvert.DeserializeObject<Pauta>(line);
+                    Pautas.Add(paut);
+                }
+
+            }
+            using (StreamReader s = File.OpenText(caminho))
+            {
+                string[] lines = File.ReadAllLines(caminho);
+                foreach (var line in lines)
+                {
+                    var paut = JsonConvert.DeserializeObject<Votar>(line);
+                    Votar.Add(paut);
+                }
+            }
+
+            while (comecar)
+            {
+                Console.WriteLine("PRESSIONE |1| PARA CADASTRO DE ELEITORES\n|2| PARA CADASTRO DE PAUTAS\n|3| PARA AS MOSTRAR PAUTAS \n|4|PARA LISTAR A BASE DE ELEIOTRES \n|5| PARA VINCULAR \n| \n 6| PARA INICIAR A VOTAÇÃO  7| PARA LISTAR O RESULTADO DE PAUTAS FINALIZADAS  \n PRESSIONE |8| PARA SAIR");
                 Int32.TryParse(Console.ReadLine(), out int decisao);
 
                 switch (decisao)
                 {
                     case 1:
+                        Console.Clear();
                         Console.WriteLine("Cadastro de Eleitores");
                         Console.WriteLine("Quantos eleitores deseja cadastrar ?");
                         Int32.TryParse(Console.ReadLine(), out int N);
@@ -35,133 +64,97 @@ namespace Votacao
                         break;
 
                     case 2:
-
+                        Console.Clear();
                         Console.WriteLine("CADASTRO DE PAUTAS");
 
                         Console.WriteLine("Quantas pautas? deseja cadastrar ?");
                         Int32.TryParse(Console.ReadLine(), out N);
                         for (int i = 0; i < N; i++)
                         {
-                            var EleitoresPauta = new List<Eleitor>();
+                            // var EleitoresPauta = new List<Eleitor>();
                             Console.WriteLine("Insira o nome da pauta");
                             string nome = Console.ReadLine();
                             Console.WriteLine("Insira o codigo da pauta");
                             int cod = int.Parse(Console.ReadLine());
-
-
-                            Console.WriteLine("Deseja cadastrar Eleitores ? s para sim e n para nao");
-                            string dd = (Console.ReadLine().ToLower());
-                            if (dd == "s")
-                            {
-                                Console.WriteLine("Esses sao os eleitores disponiveis para a votação nessa pauta");
-                                Eleitores.ForEach(E => Console.WriteLine($"Nome: {E.Nome} Codigo Eleitor {E.CodEleitor}"));
-
-                                Console.WriteLine("Quantos eleitores deseja adcionar nessa pauta ?");
-
-                                Int32.TryParse(Console.ReadLine(), out N);
-                                for (int j = 0; j < N; j++)
-                                {
-                                    if (Eleitores.Count < 1)
-                                    {
-                                        Console.WriteLine("Não há eleitores disponiveis");
-                                        Console.ReadLine();
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Se Beaseando no cod de eleitor, escolha o eleitor para entrar na pauta");
-                                        int Cod = int.Parse(Console.ReadLine());
-                                        var eleitor = Eleitores.Find(c => c.CodEleitor == Cod);
-
-                                        EleitoresPauta.Add(eleitor);
-                                    }
-
-
-                                }
-                                Pautas.Add(new Pauta(nome, cod, EleitoresPauta));
-                            }
-                            else
-                            {
-                                Pautas.Add(new Pauta(nome, cod));
-                            }
-
+                            Pautas.Add(new Pauta(nome, cod));
 
                         }
                         break;
 
                     case 3:
-                        if (Pautas.Count == 0)
-                        {
-                            Console.WriteLine("Não há pautas disponiveis");
-                        }
-                        else
-                        {
-                            foreach (var item in Pautas)
-                            {
-                                Console.WriteLine($"Codigo da pauta{item.Id} Nome da pauta {item.Nome}\n");
-
-                                Console.WriteLine("Lista de eleitores nessa pauta\n");
-                               Pauta.Mostra();
-                            }
-                        }
-
+                        Console.Clear();
+                        foreach (var item in Pautas) { Console.WriteLine($"Codigo da pauta: {item.Id} Nome da pauta {item.Nome}\n"); }
                         break;
 
                     case 4:
-
-                        if (Eleitores.Count == 0)
+                        Console.Clear();
+                        foreach (var item in Pautas)
                         {
-                            Console.WriteLine("Não tem eleitores cadastrados\n");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Lista de eleitores cadastrados\n");
+                            Console.WriteLine($"Codigo da pauta: {item.Id} Nome da pauta {item.Nome}\n");
 
-                            Eleitores.ForEach(e => Console.WriteLine($"Nome: {e.Nome} Cod: {e.CodEleitor}\n"));
+                            Console.WriteLine("Lista de eleitores nessa pauta\n");
+                            item.Mostra();
                         }
-
                         break;
 
                     case 5:
+                        Console.Clear();
                         Pautas.ForEach(c => Console.WriteLine($"Nome da pauta: {c.Nome} Codigo: {c.Id} "));
                         Console.WriteLine("Qual pauta voce quer vincular? selecione pelo codigo");
                         int co = int.Parse(Console.ReadLine());
-                        var pauta = Pautas.Find(p => p.Id == co);
-
-                        Console.WriteLine("Agora selecione o eleitor pelo codigo a adiconar na pauta");
-                        Eleitores.ForEach(e => Console.WriteLine($"Nome: {e.Nome} Cod: {e.CodEleitor}\n"));
-                        int el = int.Parse(Console.ReadLine());
-                        var eleitors = Eleitores.Find((c => c.CodEleitor == el));
-
-
-                        Console.ReadLine();
-                        pauta.Add(eleitors);
+                        var pauta = Pautas.Find(pa => pa.Id == co);
+                        pauta.Add(Eleitores);
                         break;
 
                     case 6:
+                        Console.Clear();
                         Console.WriteLine("Qual pauta voce deseja Votar? fale pelo codigo");
-                        foreach (var item in Pautas)
-                        {
-                            Console.WriteLine($"Codigo da pauta: {item.Id} Nome da pauta: {item.Nome}\n");
-
-                        }
+                        foreach (var item in Pautas) { Console.WriteLine($"Codigo da pauta: {item.Id} Nome da pauta: {item.Nome}\n"); }
                         int codp = int.Parse(Console.ReadLine());
-                        var pautaAS = Pautas.Find(p => p.Id == codp);
+                        var pautaAS = Pautas.Find(pe => pe.Id == codp);
                         Votar V = new Votar(pautaAS);
                         V.Votars();
-
                         Votar.Add(V);
+                        break;
+
+                    case 7:
+                        Console.Clear();
+                        Votar.ForEach(vot => Console.WriteLine($"Pauta: {vot.Pauta.Nome} Eleitores {vot.Eleitores} Resultado {vot.Resultado} Votos Contra: {vot.VotosC} " +
+                            $" Votos a Favor: {vot.VotosF}"));
+                        break;
+
+                    case 8:
+                        Console.Clear();
+                        Console.WriteLine("obrigado e até a proxima");
+                        comecar = false;
+                        Console.ReadLine();
                         break;
 
                     default:
                         decisao = 0;
                         break;
-
                 }
 
-
-
+                File.Delete(Path);
+                using (StreamWriter s = File.AppendText(Path))
+                {
+                    foreach (Pauta Vez in Pautas)
+                    {
+                        string G = JsonConvert.SerializeObject(Vez);
+                        s.WriteLine(G);
+                    }
+                }
+                File.Delete(caminho);
+                using (StreamWriter s = File.AppendText(caminho))
+                {
+                    foreach (Votar vote in Votar)
+                    {
+                        string G = JsonConvert.SerializeObject(vote);
+                        s.WriteLine(G);
+                    }
+                }
             }
         }
+
     }
 }

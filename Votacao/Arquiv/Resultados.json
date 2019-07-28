@@ -1,0 +1,2 @@
+{"Pauta":{"Nome":"Contra os gays","Id":2,"Eleitores":[{"Nome":"Rogerio","CodEleitor":2}]},"VotosF":0,"VotosC":1,"Resultado":false,"Aprovado":"Não!","Eleitores":1,"pAFavor":0,"pContra":0}
+{"Pauta":{"Nome":"Contra os gays","Id":2,"Eleitores":[{"Nome":"Rogerio","CodEleitor":2}]},"VotosF":1,"VotosC":0,"Resultado":true,"Aprovado":"Sim!","Eleitores":1,"pAFavor":100,"pContra":0}

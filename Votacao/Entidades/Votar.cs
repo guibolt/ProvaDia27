@@ -9,9 +9,11 @@ namespace Votacao.Entidades
         public Pauta Pauta { get; set; }
         public int VotosF { get; set; }
         public int VotosC { get; set; }
-        public bool Status { get; set; }
+        public bool Resultado { get; set; }
         public string Aprovado { get; set; }
-
+        public int Eleitores { get; set; }
+        public int pAFavor { get; set; }
+        public int pContra { get; set; }
 
         public Votar(Pauta pauta)
         {
@@ -24,7 +26,7 @@ namespace Votacao.Entidades
             foreach (var eleitor in Pauta.Eleitores)
             {
                 Console.WriteLine($"{eleitor.Nome} voce Deseja Votar a Favor ou contra a ? F para a favor e C para contra");
-                string voto = Console.ReadLine().ToLower();
+                string voto = Console.ReadLine().ToUpper();
                 if (voto == "F")
                 {
                     VotosF++;
@@ -33,32 +35,35 @@ namespace Votacao.Entidades
                 {
                     VotosC++;
                 }
-
+                Eleitores++;
 
                 Decidir();
             }
+            Porc();
         }
-
-
         public void Decidir()
         {
             if (VotosF > VotosC)
             {
                  Aprovado = "Sim!";
-                Console.WriteLine(Aprovado);
+                Console.WriteLine($"O Resultado da pauta foi {Aprovado}");
+                Resultado = true;
             }
             else
             {
                 Aprovado = "Não!";
-                Console.WriteLine(Aprovado);
+                Console.WriteLine($"O Resultado da pauta foi {Aprovado}");
+                Resultado = false;
             }
         }
-
-        public int porc()
+       
+        public void Porc()
         {
-            return 0;
+           pAFavor = (VotosF / Eleitores) * 100;
+           pContra = (VotosC / Eleitores) * 100;
+            Console.WriteLine($" Votos a favor {pAFavor} %");
+            Console.WriteLine($"Votos Votos Contra {pContra} %");
         }
-
 
     }
 
